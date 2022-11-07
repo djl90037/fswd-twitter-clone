@@ -2,10 +2,16 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import './home.scss';
+import Navbar from './homeNav.jsx'
 
-const Home = props => (
-  <h1>Home page react is working</h1>
-)
+const Home = (props) => {
+  return (
+    <React.Fragment>
+      <Navbar />
+    </React.Fragment>
+  )
+  
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
