@@ -10,7 +10,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 function HomeNav() {
   return (
     <Navbar>
-      <Container fluid>
+      <Container>
         <Navbar.Brand>
           <a href="/"><i className="fa-brands fa-twitter"></i></a>
         </Navbar.Brand>
