@@ -2,15 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import './home.scss';
-import Navbar from './homeNav.jsx'
+import HomeNav from './homeNav.jsx'
 
 const Home = (props) => {
   return (
     <React.Fragment>
-      <Navbar />
+      <HomeNav />
     </React.Fragment>
   )
-  
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
