@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { safeCredentials, handleErrors } from '../utils/fetchHelper'
 
 class Signup extends Component {
   constructor(props) {
     super(props)
-    this.State = {
+    this.state = {
+      email: '',
       username: '',
       password: ''
     };
@@ -23,72 +23,59 @@ class Signup extends Component {
   }
 
   handleChange = (event) => {
-    const value = event.target.value;
-    switch (event.target.name) {
-      case "email":
-        this.setState({ email: value });
-        break;
-      case "username":
-        this.setState({ username: value });
-        break;
-      case "password":
-        this.setState({ password: value });
-        break;
-    }
+    this.setState({
+      [event.target.name]: event.target.value,
+    })
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { email, username, password } = this.state;
+    const { username, password, email } = this.state
 
-    fetch('/api/users', safeCredentials({
+    fetch('/api/users', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         user: {
-          username,
-          password,
-          email,
+          username: username,
+          email: email,
+          password: password,
         }
-      })
-    }))
-      .then(handleErrors)
-      .then(data => {
-        if (data.success) {
-          console.log('success');
-          this.createSession();
-        }
-        else {
-          throw new Error('Invalid username or password');
-        }
-      })
-      .catch(error => {
-        alert(error);
-      });
+        })
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data)
+      this.createSession();
+    })
+    .catch((error) => {
+      console.log('Error:', error);
+    });
   }
 
   createSession = () => {
     const { username, password } = this.state;
-    fetch('/api/sessions', safeCredentials({
+    fetch('/api/sessions', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         user: {
-          username,
-          password,
+          username: username,
+          password: password,
         }
-      })
-    }))
-      .then(handleErrors)
-      .then(data => {
-        if (data.success) {
-          window.location.href = '/feeds';
-        }
-        else {
-          throw new Error('Invalid username or password');
-        }
-      })
-      .catch(error => {
-        alert(error);
-      });
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data)
+    })
+    .catch((error) => {
+      console.error('Error:', error)
+    });
   }
 
   render() {

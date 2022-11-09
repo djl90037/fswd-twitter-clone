@@ -1,8 +1,6 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-
 <a href="/"><i className="fa-brands fa-twitter"></i></a>
 
 class FeedsNav extends React.Component {
@@ -16,7 +14,7 @@ class FeedsNav extends React.Component {
         <nav className="navbar navbar-default navbar-fixed-top mb-3">
           <div className="container">
             <div className="navbar-header">
-              <a className="navbar-brand" href="/"><i className="fa-brands fa-twitter"></i></a>
+              <a href="/"><i className="fa-brands fa-twitter"></i></a>
             </div>
             <div className="search-bar col-xs-3 nav ms-auto justify-content-end">
               <div className="input-group">

@@ -14,7 +14,7 @@ const Home = (props) => {
         <div className="row">
           <div className="welcome col-7">
             <p id="welcome-title"><strong>Welcome to Twitter</strong></p>
-            <p id="welcome-text">Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum </p>
+            <p id="welcome-text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
           </div>
           <div className="log-in col-5">
             <Login />

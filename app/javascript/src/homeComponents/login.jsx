@@ -10,6 +10,7 @@ class Login extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.createSession = this.createSession.bind(this);
   }
 
   handleChange = (event) => {
@@ -24,11 +25,53 @@ class Login extends Component {
     }
   }
 
+  createSession = () => {
+    const { username, password } = this.state;
+    fetch('/api/sessions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user: {
+          username: username,
+          password: password,
+        }
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data)
+    })
+    .catch((error) => {
+      console.error('Error:', error)
+    });
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     const {username, password} = this.state;
 
-    fetch('/api/sessions')
+    fetch('/api/sessions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user: {
+          username: username,
+          password: password,
+        }
+      })
+    })
+    .then((response) => response.json())
+    .then(data => {
+      console.log('Success:', data)
+      this.createSession();
+    })
+    .catch(error => {
+      console.log('Error:', error)
+    });
   }
 
   render() {
