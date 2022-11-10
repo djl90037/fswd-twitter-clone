@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { safeCredentials, handleErrors } from '../utils/fetchHelper';
 
 class Signup extends Component {
   constructor(props) {
@@ -32,11 +33,8 @@ class Signup extends Component {
     event.preventDefault();
     const { username, password, email } = this.state
 
-    fetch('/api/users', {
+    fetch('/api/users', safeCredentials({
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         user: {
           username: username,
@@ -44,38 +42,30 @@ class Signup extends Component {
           password: password,
         }
         })
-    })
-    .then((response) => response.json())
+    }))
+    .then(handleErrors)
     .then((data) => {
       console.log('Success:', data)
       this.createSession();
     })
-    .catch((error) => {
-      console.log('Error:', error);
-    });
   }
 
   createSession = () => {
     const { username, password } = this.state;
-    fetch('/api/sessions', {
+    fetch('/api/sessions', safeCredentials({
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         user: {
           username: username,
           password: password,
         }
       }),
-    })
-    .then((response) => response.json())
+    }))
+    .then(handleErrors)
     .then((data) => {
+      window.location.href = '/feeds';
       console.log('Success:', data)
     })
-    .catch((error) => {
-      console.error('Error:', error)
-    });
   }
 
   render() {

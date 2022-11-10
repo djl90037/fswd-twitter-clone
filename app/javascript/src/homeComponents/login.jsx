@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { safeCredentials, handleErrors } from '../utils/fetchHelper';
 
 class Login extends Component {
   constructor(props) {
@@ -10,7 +11,6 @@ class Login extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.createSession = this.createSession.bind(this);
   }
 
   handleChange = (event) => {
@@ -25,53 +25,26 @@ class Login extends Component {
     }
   }
 
-  createSession = () => {
-    const { username, password } = this.state;
-    fetch('/api/sessions', {
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const {username, password} = this.state;
+
+    fetch('/api/sessions', safeCredentials({
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         user: {
           username: username,
           password: password,
         }
       }),
-    })
-    .then((response) => response.json())
+    }))
+    .then(handleErrors)
     .then((data) => {
-      console.log('Success:', data)
+      console.log('Success:', data);
     })
     .catch((error) => {
-      console.error('Error:', error)
-    });
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const {username, password} = this.state;
-
-    fetch('/api/sessions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user: {
-          username: username,
-          password: password,
-        }
-      })
+      console.error('Error:', error);
     })
-    .then((response) => response.json())
-    .then(data => {
-      console.log('Success:', data)
-      this.createSession();
-    })
-    .catch(error => {
-      console.log('Error:', error)
-    });
   }
 
   render() {
