@@ -3,11 +3,17 @@ import ReactDOM from 'react-dom'
 
 import './feeds.scss'
 import FeedsNav from './feedsNav'
+import Profile from './profile'
 
 const Feeds = () => {
   return (
     <React.Fragment>
       <FeedsNav />
+      <div className="main container">
+      <div className="row">
+        <Profile />
+      </div>
+      </div>
     </React.Fragment>
   )
 }

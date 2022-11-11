@@ -40,6 +40,7 @@ class Login extends Component {
     }))
     .then(handleErrors)
     .then((data) => {
+      window.location.href = '/feeds'
       console.log('Success:', data);
     })
     .catch((error) => {
