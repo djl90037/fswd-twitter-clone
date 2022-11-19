@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 
 import './feeds.scss'
 import FeedsNav from './feedsNav'
+import Trends from './trends'
+import NewTweet from './newtweet'
 import Profile from './profile'
 
 const Feeds = () => {
@@ -10,9 +12,13 @@ const Feeds = () => {
     <React.Fragment>
       <FeedsNav />
       <div className="main container">
-      <div className="row">
-        <Profile />
-      </div>
+        <div className="row">
+          <div className="col-3">
+            <Profile />
+            <Trends />
+          </div>
+          <NewTweet />
+        </div>
       </div>
     </React.Fragment>
   )

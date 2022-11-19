@@ -32,7 +32,6 @@ class Profile extends React.Component {
   render() {
     const { username } = this.state;
     return (
-        <div className="col-3">
           <div className="border rounded border-primary">
             <div className="profile-content">
               <div className="user">
@@ -41,7 +40,6 @@ class Profile extends React.Component {
                 <a className="screenName text-decoration-none ps-2" href="#">@{username}</a>
               </div>
             </div>
-          </div>
       </div>
     )
   }

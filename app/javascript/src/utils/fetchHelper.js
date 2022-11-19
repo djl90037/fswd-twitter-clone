@@ -35,6 +35,14 @@ export function safeCredentials(options = {}) {
   });
 }
 
+export function safeCredentialsFormData(options = {}) {
+  return Object.assign(options, {
+    credentials: 'include',
+    mode: 'same-origin',
+    headers: Object.assign((options.headers || {}), authenticityHeader()),
+  });
+}
+
 export function handleErrors(response) {
   console.log(response)
   if (!response.ok) {
@@ -42,3 +50,4 @@ export function handleErrors(response) {
   }
   return response.json();
 }
+
