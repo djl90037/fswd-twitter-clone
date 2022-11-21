@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import './feeds.scss'
 import FeedsNav from './feedsNav'
 import Trends from './trends'
-import NewTweet from './newtweet'
+import FeedBox from './feedbox'
 import Profile from './profile'
 
 const Feeds = () => {
@@ -17,7 +17,7 @@ const Feeds = () => {
             <Profile />
             <Trends />
           </div>
-          <NewTweet />
+          <FeedBox />
         </div>
       </div>
     </React.Fragment>
