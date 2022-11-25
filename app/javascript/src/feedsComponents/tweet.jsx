@@ -29,14 +29,16 @@ class Tweet extends React.Component {
     })
   }
 
-  deleteTweet() {
+  deleteTweet = e => {
+    e.preventDefault();
     const { id } = this.props;
+    console.log(id)
     fetch(`/api/tweets/${id}`, safeCredentials({
       method: 'DELETE',
     }))
     .then(handleErrors)
     .then(data => {
-      this.props.deleteTweet(id);
+      console.log("data: ", data)
     })
   }
 
@@ -57,7 +59,7 @@ class Tweet extends React.Component {
             <div className="tweet-field">
               <p className="tweet-content ps-2">{content}</p>
             </div>
-            <div className="delete-button btn m-2 btn-outline-danger" onClick={() => deleteTweet()}>Delete</div>
+            <div className="delete-button btn m-2 btn-outline-danger" onClick={() => this.deleteTweet}>Delete</div>
           </div>
         </div>
       </React.Fragment>
