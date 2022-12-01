@@ -35,12 +35,15 @@ class Signup extends React.Component {
     .then(handleErrors)
     .then((data) => {
       console.log('data:', data)
-      this.setState({
-        email: '',
-        password: '',
-        username: '',
-        success: 'Success! You can now log in'
-      })
+      if (data.success) {
+        this.setState({
+          email: '',
+          password: '',
+          username: '',
+          success: 'Success! You can now log in'
+        })
+        this.createSession();
+      }
     })
     .catch(error => {
       this.setState({
@@ -49,23 +52,23 @@ class Signup extends React.Component {
     })
   }
 
-  // createSession = () => {
-  //   const { username, password } = this.state;
-  //   fetch('/api/sessions', safeCredentials({
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //       user: {
-  //         username: username,
-  //         password: password,
-  //       }
-  //     }),
-  //   }))
-  //   .then(handleErrors)
-  //   .then((data) => {
-  //     window.location.href = '/feeds';
-  //     console.log('Success:', data)
-  //   })
-  // }
+  createSession = () => {
+    fetch('/api/sessions', safeCredentials({
+      method: 'POST',
+      body: JSON.stringify({
+        user: {
+          username: this.state.username,
+          password: this.state.password,
+          email: this.email.email,
+        }
+      }),
+    }))
+    .then(handleErrors)
+    .then((data) => {
+      window.location.href = '/feeds';
+      console.log('Success:', data)
+    })
+  }
 
   render() {
     return (
