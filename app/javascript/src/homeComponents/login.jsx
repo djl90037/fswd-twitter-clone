@@ -1,47 +1,47 @@
 import React, { Component } from 'react'
 import { safeCredentials, handleErrors } from '../utils/fetchHelper';
 
-class Login extends Component {
+class Login extends React.Component {
   constructor(props) {
     super(props)
-    this.State = {
+    this.state = {
       username: '',
-      password: ''
+      password: '',
+      authenticated: false,
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    
   }
 
-  handleChange = (event) => {
-    const value = event.target.value;
-    switch (event.target.name) {
-      case 'username':
-        this.setState({ username: value });
-        break;
-      case 'password':
-        this.setState({ password: value });
-        break;
-    }
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    })
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const {username, password} = this.state;
+  handleSubmit = (e) => {
+    e.preventDefault();
 
     fetch('/api/sessions', safeCredentials({
       method: 'POST',
       body: JSON.stringify({
         user: {
-          username: username,
-          password: password,
+          username: this.state.username,
+          password: this.state.password,
         }
       }),
     }))
     .then(handleErrors)
-    .then((data) => {
-      window.location.href = '/feeds'
-      console.log('Success:', data);
+    .then(data => {
+      console.log("data: ", data)
+      if (data.success) {
+        this.setState({
+          username: '',
+          password: '',
+          authenticated: true,
+        })
+        window.location.href = '/feeds'
+      }
     })
     .catch((error) => {
       console.error('Error:', error);

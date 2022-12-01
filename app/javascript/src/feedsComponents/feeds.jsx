@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { handleErrors } from '../utils/fetchHelper'
 
 import './feeds.scss'
 import FeedsNav from './feedsNav'
@@ -7,21 +8,25 @@ import Trends from './trends'
 import FeedBox from './feedbox'
 import Profile from './profile'
 
-const Feeds = () => {
-  return (
-    <React.Fragment>
-      <FeedsNav />
-      <div className="main container">
-        <div className="row">
-          <div className="col-3">
-            <Profile />
-            <Trends />
+
+
+class Feeds extends React.Component {
+  render() {
+    return (
+      <React.Fragment>
+        <FeedsNav />
+        <div className="main container">
+          <div className="row">
+            <div className="col-3">
+              <Profile />
+              <Trends />
+            </div>
+            <FeedBox />
           </div>
-          <FeedBox />
         </div>
-      </div>
-    </React.Fragment>
-  )
+      </React.Fragment>
+    )
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

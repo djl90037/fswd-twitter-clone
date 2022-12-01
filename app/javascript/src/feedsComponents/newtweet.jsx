@@ -51,6 +51,9 @@ class NewTweet extends React.Component {
     .then(handleErrors)
     .then(data => {
       console.log('data:', data)
+      if(data.success) {
+        this.props.getAllTweets();
+      }
     })
     .catch(error => {
       console.log(error)

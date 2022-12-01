@@ -1,5 +1,5 @@
 import React from 'react'
-import Component from 'react'
+
 
 import { safeCredentials, handleErrors } from '../utils/fetchHelper'
 
@@ -11,6 +11,28 @@ class Profile extends React.Component {
     };
 
     this.getUsername = this.getUsername.bind(this);
+  }
+
+  logout = e => {
+    e.preventDefault();
+
+    fetch('api/sessions', safeCredentials({
+      method: 'DELETE',
+    }))
+    .then(handleErrors)
+    .then(data => {
+      if(data.success) {
+        this.setState({
+          authenticated: false,
+        })
+        window.location.href = '/'
+      }
+    })
+    .catch(error => {
+      this.setState({
+        error: 'Sign out failed',
+      })
+    })
   }
 
   componentDidMount() {
@@ -33,11 +55,18 @@ class Profile extends React.Component {
     const { username } = this.state;
     return (
           <div className="border rounded border-primary">
-            <div className="profile-content">
-              <div className="user">
+            <div className="row profile-content">
+              <div className="col-9 user">
                 <a className="username ps-2 fw-bold" href="#">{username}</a>
                 <br />
                 <a className="screenName text-decoration-none ps-2" href="#">@{username}</a>
+              </div>
+              <div className="col-3 logout my-1 mr-1">
+                <form onSubmit={this.logout}>
+                  <button className=" btn btn-primary btn-sm rounded" type="submit" size="sm" variant="link">
+                    Log out
+                  </button>
+                </form>
               </div>
             </div>
       </div>

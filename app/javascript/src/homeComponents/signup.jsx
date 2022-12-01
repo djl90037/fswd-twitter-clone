@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { safeCredentials, handleErrors } from '../utils/fetchHelper';
 
-class Signup extends Component {
+class Signup extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -10,70 +10,69 @@ class Signup extends Component {
       password: ''
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.createSession = this.createSession.bind(this);
   }
 
-  componentDidMount() {
+  handleChange = e => {
     this.setState({
-      email: '',
-      username: '',
-      password: ''
-    });
-  }
-
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
+      [e.target.name]: e.target.value,
     })
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const { username, password, email } = this.state
+  signup = (e) => {
+    e.preventDefault();
+    
 
     fetch('/api/users', safeCredentials({
       method: 'POST',
       body: JSON.stringify({
         user: {
-          username: username,
-          email: email,
-          password: password,
+          username: this.state.username,
+          email: this.state.email,
+          password: this.state.password,
         }
-        })
+      })
     }))
     .then(handleErrors)
     .then((data) => {
-      console.log('Success:', data)
-      this.createSession();
+      console.log('data:', data)
+      this.setState({
+        email: '',
+        password: '',
+        username: '',
+        success: 'Success! You can now log in'
+      })
+    })
+    .catch(error => {
+      this.setState({
+        error: 'Sign up failed'
+      })
     })
   }
 
-  createSession = () => {
-    const { username, password } = this.state;
-    fetch('/api/sessions', safeCredentials({
-      method: 'POST',
-      body: JSON.stringify({
-        user: {
-          username: username,
-          password: password,
-        }
-      }),
-    }))
-    .then(handleErrors)
-    .then((data) => {
-      window.location.href = '/feeds';
-      console.log('Success:', data)
-    })
-  }
+  // createSession = () => {
+  //   const { username, password } = this.state;
+  //   fetch('/api/sessions', safeCredentials({
+  //     method: 'POST',
+  //     body: JSON.stringify({
+  //       user: {
+  //         username: username,
+  //         password: password,
+  //       }
+  //     }),
+  //   }))
+  //   .then(handleErrors)
+  //   .then((data) => {
+  //     window.location.href = '/feeds';
+  //     console.log('Success:', data)
+  //   })
+  // }
 
   render() {
     return (
       <React.Fragment>
         <div className="card signup-card p-2 border border-primary">
           <div className="sign-in-title card-title"><h4>Sign up here</h4></div>
-          <form id="signup-form" onSubmit={this.handleSubmit}>
+          <form id="signup-form" onSubmit={this.signup}>
             <div className="form-group">
               <input onChange={this.handleChange} type="text" name="username" value={this.username} className="form-control username mb-2 border border-primary" placeholder="username" />
             </div>
