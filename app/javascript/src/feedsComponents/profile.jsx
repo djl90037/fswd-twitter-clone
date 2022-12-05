@@ -61,10 +61,10 @@ class Profile extends React.Component {
                 <br />
                 <a className="screenName text-decoration-none ps-2" href="#">@{username}</a>
               </div>
-              <div className="col-3 logout my-1 mr-1">
+              <div className="col-3 logout pt-2">
                 <form onSubmit={this.logout}>
-                  <button className=" btn btn-primary btn-sm rounded" type="submit" size="sm" variant="link">
-                    Log out
+                  <button className="btn btn-primary btn-sm float-end" type="submit" size="sm" variant="link">
+                    Logout
                   </button>
                 </form>
               </div>

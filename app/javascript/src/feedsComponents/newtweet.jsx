@@ -11,9 +11,6 @@ class NewTweet extends React.Component {
       username: '',
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.getUsername = this.getUsername.bind(this);
   }
 
   componentDidMount() {
@@ -43,6 +40,7 @@ class NewTweet extends React.Component {
 
     let formData = new FormData();
     formData.append('tweet[message]', this.state.message)
+    console.log(formData)
 
     fetch('/api/tweets', safeCredentialsFormData({
       method: 'POST',
@@ -65,7 +63,7 @@ class NewTweet extends React.Component {
       <div 
         style={ {maxWidth: "700px"} } 
         className="col-9 tweet border rounded border-primary my-2">
-          <form onSubmit={this.handleSubmit}>
+          <form className="mx-2" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <textarea className="form-control my-2" rows="3" name="message" value={this.message} onChange={this.handleChange} placeholder="New tweet"/>
             </div>

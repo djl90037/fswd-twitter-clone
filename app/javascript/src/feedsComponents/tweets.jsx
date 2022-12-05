@@ -1,5 +1,5 @@
 import React from 'react'
-import EvalSourceMapDevToolModuleTemplatePlugin from 'webpack/lib/EvalSourceMapDevToolModuleTemplatePlugin';
+
 import { safeCredentials, handleErrors } from '../utils/fetchHelper'
 
 class Tweets extends React.Component {
@@ -53,17 +53,16 @@ class Tweets extends React.Component {
 
   render() {
     const { tweets } = this.props;
-    console.log(tweets)
 
     return (
       <React.Fragment>
         <div 
-          style={ {maxWidth: "700px"} } 
-          className="tweets ">
-          <div className="tweet-content bg-light">
+          style={ {maxWidth: "700px", paddingTop: "65px"} } 
+          className="tweets">
+          <div className="tweet-content">
             {tweets.map(tweet => {
               return (
-                <div key={tweet.id} id={tweet.id} className="border border-primary rounded row d-flex py-2 tweet-inner">
+                <div key={tweet.id} id={tweet.id} className="border border-primary bg-light rounded row d-flex py-2 my-2 tweet-inner">
                   <div className="col-12">
                     <div className="row d-flex flex-column tweet-details">
                       <div className="col d-flex justify-content-between">
@@ -71,7 +70,11 @@ class Tweets extends React.Component {
                           <span className="tweet-name"><b>{tweet.username}</b></span>
                           <a href={`/${tweet.username}`} className="p-0 tweet-username">@{tweet.username}</a>
                         </div>
-                        <button type="button" className="btn btn-link btn-delete" onClick={this.deleteTweet}>Delete</button>
+                        {
+                          (tweet.username == this.state.username) ?
+                            <button type="button" className="btn btn-danger" onClick={this.deleteTweet}>Delete</button> : 
+                            <div></div> 
+                        }
                       </div>
                       <div className="col py-1">
                         <span>{tweet.message}</span>

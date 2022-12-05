@@ -45,6 +45,7 @@ class Login extends React.Component {
     })
     .catch((error) => {
       console.error('Error:', error);
+      alert('log in failed!')
     })
   }
 
@@ -57,7 +58,7 @@ class Login extends React.Component {
             <input type="text" name="username" value={this.username} onChange={this.handleChange} className="form-control username mb-2 border border-primary shadow" placeholder="username"/>
           </div>
           <div className="form-group col-xs-8">
-            <input type="password" value={this.password} onChange={this.handleChange} className="form-control password my-2 border border-primary shadow" placeholder="password"></input>
+            <input type="password" name="password" value={this.password} onChange={this.handleChange} className="form-control password my-2 border border-primary shadow" placeholder="password"></input>
           </div>
           <button type="submit" className="btn btn-default btn-primary col-xs-3 float-right">Log in</button>
         </form>
