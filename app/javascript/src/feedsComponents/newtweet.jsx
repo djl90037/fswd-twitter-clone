@@ -50,11 +50,22 @@ class NewTweet extends React.Component {
     .then(data => {
       console.log('data:', data)
       if(data.success) {
-        this.props.getAllTweets();
+        getAllTweets();
       }
     })
     .catch(error => {
       console.log(error)
+    })
+  }
+
+  getAllTweets = () => {
+    fetch('/api/tweets')
+    .then(handleErrors)
+    .then(data => {
+      console.log('data: ', data);
+      this.setState({
+        tweets: data.tweets
+      })
     })
   }
 
