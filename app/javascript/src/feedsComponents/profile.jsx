@@ -53,6 +53,7 @@ class Profile extends React.Component {
 
   render() {
     const { username } = this.state;
+    
     return (
           <div className="border rounded border-primary">
             <div className="row profile-content">

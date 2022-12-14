@@ -21,7 +21,6 @@ class Signup extends React.Component {
   signup = (e) => {
     e.preventDefault();
     
-
     fetch('/api/users', safeCredentials({
       method: 'POST',
       body: JSON.stringify({
@@ -40,10 +39,9 @@ class Signup extends React.Component {
           email: '',
           password: '',
           username: '',
-          success: 'Success! You can now log in'
         })
-        this.createSession();
       }
+      this.createSession();
     })
     .catch(error => {
       this.setState({
@@ -53,13 +51,13 @@ class Signup extends React.Component {
   }
 
   createSession = () => {
+    const { username, password } = this.state;
     fetch('/api/sessions', safeCredentials({
       method: 'POST',
       body: JSON.stringify({
         user: {
-          username: this.state.username,
-          password: this.state.password,
-          email: this.state.email,
+          username,
+          password,
         }
       }),
     }))

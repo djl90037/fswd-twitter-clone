@@ -4,7 +4,6 @@ import { handleErrors } from '../utils/fetchHelper'
 import Tweets from './tweets'
 
 class FeedBox extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -28,11 +27,11 @@ class FeedBox extends React.Component {
       })
     })
   }
+  
   render() {
     const { username, tweets } = this.state;
   
     return (
-      
       <React.Fragment>
         <div className="col-9 feed-box border-primary rounded">
           <NewTweet tweets={tweets} getAllTweets={this.getAllTweets}/>
@@ -43,7 +42,6 @@ class FeedBox extends React.Component {
         </div>
       </React.Fragment>
     )
-
   }
 }
 

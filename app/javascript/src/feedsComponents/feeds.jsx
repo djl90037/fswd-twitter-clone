@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { handleErrors } from '../utils/fetchHelper'
 
 import './feeds.scss'
 import FeedsNav from './feedsNav'
